@@ -58,9 +58,15 @@ case R.id.menu_search:
                 intent.setClass(NotesList.this,NoteSearch.class);
                 NotesList.this.startActivity(intent);
                 return true;
-3对输入的模糊搜索内容与各item名字的比较，并显示所有匹配的item
+3、对输入的模糊搜索内容与各item名字的比较，并显示所有匹配的item
 （可通过继续点击item，跳转至该item的编辑界面进行查看与编辑）：
 
+package com.example.android.notepad;
+
+import android.app.ListActivity;
+import android.content.ContentUris;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -70,9 +76,9 @@ import android.widget.SimpleCursorAdapter;
 
 public class NoteSearch extends ListActivity implements SearchView.OnQueryTextListener {
     private static final String[] PROJECTION = new String[] {
-            NotePad.Notes._ID, // 0
-            NotePad.Notes.COLUMN_NAME_TITLE, // 1
-            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, // 2
+            NotePad.Notes._ID, 
+            NotePad.Notes.COLUMN_NAME_TITLE, 
+            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, 
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +89,7 @@ public class NoteSearch extends ListActivity implements SearchView.OnQueryTextLi
             intent.setData(NotePad.Notes.CONTENT_URI);
         }
         SearchView searchview = (SearchView)findViewById(R.id.search_view);
-        //为查询文本框注册监听器
+       
         searchview.setOnQueryTextListener(NoteSearch.this);
     }
     @Override
@@ -115,22 +121,21 @@ public class NoteSearch extends ListActivity implements SearchView.OnQueryTextLi
     }
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        // Constructs a new URI from the incoming URI and the row ID
+        
         Uri uri = ContentUris.withAppendedId(getIntent().getData(), id);
-        // Gets the action from the incoming Intent
+        
         String action = getIntent().getAction();
-        // Handles requests for note data
+       
         if (Intent.ACTION_PICK.equals(action) || Intent.ACTION_GET_CONTENT.equals(action)) {
-            // Sets the result to return to the component that called this Activity. The
-            // result contains the new URI
+           
             setResult(RESULT_OK, new Intent().setData(uri));
         } else {
-            // Sends out an Intent to start an Activity that can handle ACTION_EDIT. The
-            // Intent's data is the note ID URI. The effect is to call NoteEdit.
+         
             startActivity(new Intent(Intent.ACTION_EDIT, uri));
         }
     }
 }
+
 
 4、新建note_search_show.xml布局文件，实现用户输入以及显示模糊搜索结果：
 <?xml version="1.0" encoding="utf-8"?>
