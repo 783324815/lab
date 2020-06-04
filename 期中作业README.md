@@ -51,6 +51,7 @@ private final void updateNote(String text, String title) {
         android:icon="@android:drawable/ic_search_category_default"
         android:showAsAction="always">
     </item>
+
 2、在onOptionsItemSelected方法中，添加switch，
 实现点击搜索按钮后，跳转至NoteSearch页面：
 case R.id.menu_search:
@@ -58,6 +59,7 @@ case R.id.menu_search:
                 intent.setClass(NotesList.this,NoteSearch.class);
                 NotesList.this.startActivity(intent);
                 return true;
+
 3、对输入的模糊搜索内容与各item名字的比较，并显示所有匹配的item
 （可通过继续点击item，跳转至该item的编辑界面进行查看与编辑）：
 
