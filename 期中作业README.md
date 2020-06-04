@@ -56,18 +56,17 @@ private final void updateNote(String text, String title) {
 
 2、在onOptionsItemSelected方法中，添加switch，
 实现点击搜索按钮后，跳转至NoteSearch页面：
-
+```java
 case R.id.menu_search:
                 Intent intent = new Intent();
                 intent.setClass(NotesList.this,NoteSearch.class);
                 NotesList.this.startActivity(intent);
                 return true;
-
+```java
 3、对输入的模糊搜索内容与各item名字的比较，并显示所有匹配的item
 （可通过继续点击item，跳转至该item的编辑界面进行查看与编辑）：
-
+```java
 package com.example.android.notepad;
-
 import android.app.ListActivity;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -94,7 +93,6 @@ public class NoteSearch extends ListActivity implements SearchView.OnQueryTextLi
             intent.setData(NotePad.Notes.CONTENT_URI);
         }
         SearchView searchview = (SearchView)findViewById(R.id.search_view);
-       
         searchview.setOnQueryTextListener(NoteSearch.this);
     }
     @Override
@@ -140,9 +138,10 @@ public class NoteSearch extends ListActivity implements SearchView.OnQueryTextLi
         }
     }
 }
-
+```
 
 4、新建note_search_show.xml布局文件，实现用户输入以及显示模糊搜索结果：
+```java
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -161,12 +160,14 @@ public class NoteSearch extends ListActivity implements SearchView.OnQueryTextLi
         android:layout_height="wrap_content">
     </ListView>
 </LinearLayout>
-
+```
 5、在AndroidManifest.xml中注册NoteSearch活动：
-	<activity
+```java
+<activity
             android:name="NoteSearch"
             android:label="笔记搜索">
         </activity>
+```
 运行结果：
 ----------
 ![](https://img-blog.csdnimg.cn/20200604153145394.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTEyNjA1NA==,size_16,color_FFFFFF,t_70)
