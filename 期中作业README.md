@@ -4,6 +4,7 @@
 ------
 在notelist_item.xml增加时间戳布局，整体使用相对布局
 增加的时间戳：text2
+
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,6 +46,7 @@ private final void updateNote(String text, String title) {
 2、搜索
 -------
 1、在list_options_menu.xml布局文件中，添加搜索item图标：
+
     <item
         android:id="@+id/menu_search"
         android:title="@string/menu_search"
@@ -54,6 +56,7 @@ private final void updateNote(String text, String title) {
 
 2、在onOptionsItemSelected方法中，添加switch，
 实现点击搜索按钮后，跳转至NoteSearch页面：
+
 case R.id.menu_search:
                 Intent intent = new Intent();
                 intent.setClass(NotesList.this,NoteSearch.class);
